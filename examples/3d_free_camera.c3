@@ -18,7 +18,7 @@ fn int main()
     camera.target = Vector3{ 0.0f, 0.0f, 0.0f };      // Camera looking at point
     camera.up = Vector3{ 0.0f, 1.0f, 0.0f };          // Camera up vector (rotation towards target)
     camera.fovy = 45.0f;                                // Camera field-of-view Y
-    camera.projection = (int)raylib::CameraProjection.CAMERA_PERSPECTIVE;             // Camera projection type
+    camera.projection = CAMERA_PERSPECTIVE;             // Camera projection type
 
     Vector3 cubePosition = { 0.0f, 0.0f, 0.0f };
 
@@ -32,9 +32,9 @@ fn int main()
     {
         // Update
         //----------------------------------------------------------------------------------
-        raylib::update_camera(&camera, (int)raylib::CameraMode.CAMERA_FREE);
+        raylib::update_camera(&camera, CAMERA_FREE);
 
-        if (raylib::is_key_pressed('Z')) camera.target = Vector3{ 0.0f, 0.0f, 0.0f };
+        if (raylib::is_key_pressed(KEY_Z)) camera.target = Vector3{ 0.0f, 0.0f, 0.0f };
         //----------------------------------------------------------------------------------
 
         // Draw

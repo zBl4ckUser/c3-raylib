@@ -14,9 +14,9 @@ fn int main()
     camera.target = Vector3{ 0.0f, 2.0f, 0.0f };
     camera.up = Vector3{ 0.0f, 1.0f, 0.0f };
     camera.fovy = 60.0f;
-    camera.projection = (int)raylib::CameraProjection.CAMERA_PERSPECTIVE;
+    camera.projection = CAMERA_PERSPECTIVE;
 
-    int camera_mode = (int)raylib::CameraMode.CAMERA_FIRST_PERSON;
+    raylib::CameraMode camera_mode = CAMERA_FIRST_PERSON;
 
     float[MAX_COLUMNS] heights;
     Vector3[MAX_COLUMNS] positions;
@@ -35,50 +35,50 @@ fn int main()
 
     while (!raylib::window_should_close())
     {
-        if (raylib::is_key_pressed(raylib::KEY_ONE))
+        if (raylib::is_key_pressed(KEY_ONE))
         {
-            camera_mode = (int)raylib::CameraMode.CAMERA_FREE;
+            camera_mode = CAMERA_FREE;
             camera.up = Vector3{ 0.0f, 1.0f, 0.0f };
         }
 
-        if (raylib::is_key_pressed(raylib::KEY_TWO))
+        if (raylib::is_key_pressed(KEY_TWO))
         {
-            camera_mode = (int)raylib::CameraMode.CAMERA_FIRST_PERSON;
+            camera_mode = CAMERA_FIRST_PERSON;
             camera.up = Vector3{ 0.0f, 1.0f, 0.0f };
         }
 
-        if (raylib::is_key_pressed(raylib::KEY_THREE))
+        if (raylib::is_key_pressed(KEY_THREE))
         {
-            camera_mode = (int)raylib::CameraMode.CAMERA_THIRD_PERSON;
+            camera_mode = CAMERA_THIRD_PERSON;
             camera.up = Vector3{ 0.0f, 1.0f, 0.0f };
         }
 
-        if (raylib::is_key_pressed(raylib::KEY_FOUR))
+        if (raylib::is_key_pressed(KEY_FOUR))
         {
-            camera_mode = (int)raylib::CameraMode.CAMERA_ORBITAL;
+            camera_mode = CAMERA_ORBITAL;
             camera.up = Vector3{ 0.0f, 1.0f, 0.0f };
         }
 
-        if (raylib::is_key_pressed(raylib::KEY_P))
+        if (raylib::is_key_pressed(KEY_P))
         {
-            if (camera.projection == (int)raylib::CameraProjection.CAMERA_PERSPECTIVE)
+            if (camera.projection == CAMERA_PERSPECTIVE)
             {
-                camera_mode = (int)raylib::CameraMode.CAMERA_THIRD_PERSON;
+                camera_mode = CAMERA_THIRD_PERSON;
                 camera.position = Vector3{ 0.0f, 2.0f, -100.0f };
                 camera.target = Vector3{ 0.0f, 2.0f, 0.0f };
                 camera.up = Vector3{ 0.0f, 1.0f, 0.0f };
-                camera.projection = (int)raylib::CameraProjection.CAMERA_ORTHOGRAPHIC;
+                camera.projection = CAMERA_ORTHOGRAPHIC;
                 camera.fovy = 20.0f;
                 raylib::camera_yaw(&camera, -135 * raylib::DEG2RAD, true);
                 raylib::camera_pitch(&camera, -45 * raylib::DEG2RAD, true, true, false);
             }
-            else if (camera.projection == (int)raylib::CameraProjection.CAMERA_ORTHOGRAPHIC)
+            else if (camera.projection == CAMERA_ORTHOGRAPHIC)
             {
-                camera_mode = (int)raylib::CameraMode.CAMERA_THIRD_PERSON;
+                camera_mode = CAMERA_THIRD_PERSON;
                 camera.position = Vector3{ 0.0f, 2.0f, 10.0f };
                 camera.target = Vector3{ 0.0f, 2.0f, 0.0f };
                 camera.up = Vector3{ 0.0f, 1.0f, 0.0f };
-                camera.projection = (int)raylib::CameraProjection.CAMERA_PERSPECTIVE;
+                camera.projection = CAMERA_PERSPECTIVE;
                 camera.fovy = 60.0f;
             }
         }
@@ -101,7 +101,7 @@ fn int main()
                     raylib::draw_cube_wires(positions[i], 2.0f, heights[i], 2.0f, raylib::MAROON);
                 }
 
-                if (camera_mode == (int) raylib::CameraMode.CAMERA_THIRD_PERSON)
+                if (camera_mode == CAMERA_THIRD_PERSON)
                 {
                     raylib::draw_cube(camera.target, 0.5f, 0.5f, 0.5f, raylib::PURPLE);
                     raylib::draw_cube_wires(camera.target, 0.5f, 0.5f, 0.5f, raylib::DARKPURPLE);
@@ -123,12 +123,12 @@ fn int main()
             raylib::draw_rectangle_lines(600, 5, 195, 100, raylib::BLUE);
 
             raylib::draw_text("Camera status:", 610, 15, 10, raylib::BLACK);
-            raylib::draw_text(raylib::text_format("- Mode: %s", (camera_mode == (int)raylib::CameraMode.CAMERA_FREE) ? "FREE" :
-                                              (camera_mode == (int)raylib::CameraMode.CAMERA_FIRST_PERSON) ? "FIRST_PERSON" :
-                                              (camera_mode == (int)raylib::CameraMode.CAMERA_THIRD_PERSON) ? "THIRD_PERSON" :
-                                              (camera_mode == (int)raylib::CameraMode.CAMERA_ORBITAL) ? "ORBITAL" : "CUSTOM"), 610, 30, 10, raylib::BLACK);
-            raylib::draw_text(raylib::text_format("- Projection: %s", (camera.projection == (int)raylib::CameraProjection.CAMERA_PERSPECTIVE) ? "PERSPECTIVE" :
-                                                    (camera.projection == (int)raylib::CameraProjection.CAMERA_ORTHOGRAPHIC) ? "ORTHOGRAPHIC" : "CUSTOM"), 610, 45, 10, raylib::BLACK);
+            raylib::draw_text(raylib::text_format("- Mode: %s", (camera_mode == CAMERA_FREE) ? "FREE" :
+                                              (camera_mode == CAMERA_FIRST_PERSON) ? "FIRST_PERSON" :
+                                              (camera_mode == CAMERA_THIRD_PERSON) ? "THIRD_PERSON" :
+                                              (camera_mode == CAMERA_ORBITAL) ? "ORBITAL" : "CUSTOM"), 610, 30, 10, raylib::BLACK);
+            raylib::draw_text(raylib::text_format("- Projection: %s", (camera.projection == CAMERA_PERSPECTIVE) ? "PERSPECTIVE" :
+                                                    (camera.projection == CAMERA_ORTHOGRAPHIC) ? "ORTHOGRAPHIC" : "CUSTOM"), 610, 45, 10, raylib::BLACK);
             raylib::draw_text(raylib::text_format("- Position: (%06.3f, %06.3f, %06.3f)", camera.position.x, camera.position.y, camera.position.z), 610, 60, 10, raylib::BLACK);
             raylib::draw_text(raylib::text_format("- Target: (%06.3f, %06.3f, %06.3f)", camera.target.x, camera.target.y, camera.target.z), 610, 75, 10, raylib::BLACK);
             raylib::draw_text(raylib::text_format("- Up: (%06.3f, %06.3f, %06.3f)", camera.up.x, camera.up.y, camera.up.z), 610, 90, 10, raylib::BLACK);
